@@ -1,7 +1,17 @@
-async function fetchLocation() {
-  const response = await fetch("http://api.open-notify.org/iss-now.json");
-  const infos = await response.json();
-  console.log(infos);
+async function fetchLocationAndUpdateUI() {
+  try {
+    const error = document.querySelector(".error");
+    const response = await fetch("http://api.open-notify.org/iss-now.json");
+    const data = await response.json();
+    const { latitude, longitude } = data.iss_position;
+    console.log(data);
+    document.getElementById("latitude").textContent = latitude;
+    document.getElementById("longitude").textContent = longitude;
+  } catch (error) {
+    console.error("Erreur lors de la récupération des données:", error);
+    error.textContent = "Erreur lors de la récupération des donnée";
+  }
 }
 
-fetchLocation();
+setInterval(fetchLocationAndUpdateUI, 1000);
+fetchLocationAndUpdateUI();
