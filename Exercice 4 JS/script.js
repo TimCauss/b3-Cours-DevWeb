@@ -1,6 +1,5 @@
-async function fetchLocationAndUpdateUI() {
+async function fetchISS() {
   try {
-    const error = document.querySelector(".error");
     const response = await fetch("http://api.open-notify.org/iss-now.json");
     const data = await response.json();
     const { latitude, longitude } = data.iss_position;
@@ -9,9 +8,10 @@ async function fetchLocationAndUpdateUI() {
     document.getElementById("longitude").textContent = longitude;
   } catch (error) {
     console.error("Erreur lors de la récupération des données:", error);
-    error.textContent = "Erreur lors de la récupération des donnée";
+    document.querySelector(".error").textContent =
+      "Erreur lors de la récupération des donnée";
   }
 }
 
-setInterval(fetchLocationAndUpdateUI, 1000);
+setInterval(fetchISS, 1000);
 fetchLocationAndUpdateUI();
