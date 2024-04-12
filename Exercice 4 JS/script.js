@@ -14,4 +14,4 @@ async function fetchISS() {
 }
 
 setInterval(fetchISS, 1000);
-fetchLocationAndUpdateUI();
+fetchISS();
